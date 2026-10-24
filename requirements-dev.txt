@@ -1,0 +1,2 @@
+freqtrade==2026.9
+pytest
