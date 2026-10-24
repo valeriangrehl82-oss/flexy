@@ -50,8 +50,12 @@ Kursdaten laden und Backtest (braucht Zugriff auf die Binance-Schnittstellen):
 freqtrade download-data -c user_data/config.json -c user_data/config.backtest.json \
   --userdir user_data --timeframes 1h --timerange 20220101-
 freqtrade backtesting -c user_data/config.json -c user_data/config.backtest.json \
-  --userdir user_data --strategy FlexyStarter --timerange 20220101-
+  --userdir user_data --strategy FlexyStarter --timerange 20220101- --enable-protections
 ```
+
+`--enable-protections` ist Pflicht: Ohne den Schalter rechnet Freqtrade die Pausen aus
+`FlexyBase.protections` (Tagesverlust, Stop-Loss-Serien) im Backtest nicht mit, und die
+Ergebnisse wären geschönt.
 
 ## Betrieb auf dem Server (ab Schritt 3)
 
