@@ -1,0 +1,26 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - name: Abhängigkeiten installieren
+        run: pip install -r requirements-dev.txt
+      - name: Sicherheitsregeln testen
+        run: pytest -q
+      - name: Konfiguration und Strategien prüfen
+        run: |
+          freqtrade show-config -c user_data/config.json --userdir user_data > /dev/null
+          freqtrade show-config -c user_data/config.json -c user_data/config.backtest.json --userdir user_data > /dev/null
+          freqtrade list-strategies -c user_data/config.json --userdir user_data
